@@ -372,23 +372,27 @@ class ComputerStrategy:
         center_count = center_array.count(player)
         score += center_count * 3
 
+        # horizontal score
         for row in range(rows):
             row_array = [board[row][column] for column in range(columns)]
             for column in range(columns - 3):
                 window = row_array[column:column + 4]
                 score += self.evaluate_window(window, player)
 
+        # vertical score
         for column in range(columns):
             col_array = [board[row][column] for row in range(rows)]
             for row in range(rows - 3):
                 window = col_array[row:row + 4]
                 score += self.evaluate_window(window, player)
 
+        # upward diagonal score
         for row in range(rows - 3):
             for column in range(columns - 3):
                 window = [board[row + i][column + i] for i in range(4)]
                 score += self.evaluate_window(window, player)
 
+        # downward diagonal score
         for row in range(3, rows):
             for column in range(columns - 3):
                 window = [board[row - i][column + i] for i in range(4)]
