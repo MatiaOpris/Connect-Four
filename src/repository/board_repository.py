@@ -176,7 +176,7 @@ class BoardActions:
     def display_board(self):
         board = texttable.Texttable()
         board.add_rows(self._board)
-        print(board.draw())
+        return board.draw()
 
     def get_board(self):
         return self._board
