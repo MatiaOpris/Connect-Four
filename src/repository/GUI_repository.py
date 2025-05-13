@@ -1,8 +1,6 @@
 import tkinter
 from tkinter import messagebox
-
-from src.domain.board import Board
-from src.repository.board_repository import BoardActions, BoardException
+from src.repository.board_repository import BoardException
 
 
 class GUIBoardRepository:

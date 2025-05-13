@@ -138,18 +138,25 @@ class BoardActions:
 
     def check_winner(self, player):
         rows, columns, piece_alignment = 6, 7, 4
+        # horizontal check
         for row in range(1, rows + 1):
             for column in range(1, columns - 2):
                 if all(self._board[row][column + i] == player for i in range(piece_alignment)):
                     return True
+
+        # vertical check
         for row in range(1, rows - 2):
             for column in range(1, columns + 1):
                 if all(self._board[row + i][column] == player for i in range(piece_alignment)):
                     return True
+
+        # upward diagonal check
         for row in range(1, rows - 2):
             for column in range(1, columns - 2):
                 if all(self._board[row + i][column + i] == player for i in range(piece_alignment)):
                     return True
+
+        # downwards diagonal check
         for row in range(piece_alignment, rows + 1):
             for column in range(1, columns - 2):
                 if all(self._board[row - i][column + i] == player for i in range(piece_alignment)):
