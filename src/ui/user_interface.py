@@ -26,7 +26,7 @@ class UserInterface:
     def try_and_except_input(left_bound, right_bound) -> int:
         while True:
             try:
-                input_variable = int(input("Choice > "))
+                input_variable = int(input("Choice -> "))
                 if input_variable < left_bound or input_variable > right_bound:
                     raise ValueError("Invalid option")
                 return input_variable
@@ -35,7 +35,7 @@ class UserInterface:
 
     @staticmethod
     def computer_difficulty_level_menu():
-        print("Choose computer's difficulty level > ")
+        print("Choose computer's difficulty level -> ")
         print("1. Easy")
         print("2. Medium")
         print("3. Hard")
@@ -56,7 +56,7 @@ class UserInterface:
         while not game_over:
             while True:
                 try:
-                    user_move = input("Your move > ").upper()
+                    user_move = input("Your move (between A - G) -> ").upper()
                     if user_move not in ['A', 'B', 'C', 'D', 'E', 'F', 'G']:
                         raise ValueError("Enter right move")
                     user_move = ord(user_move.upper()) - ord('A') + 1
@@ -70,15 +70,13 @@ class UserInterface:
                     self.service.add_move_on_board(user_move, user)
                     break
                 except BoardException:
-                    user_move = input("Enter right move > ")
+                    user_move = input("Enter right move -> ")
                     user_move = ord(user_move.upper()) - ord('A') + 1
 
+            self.service.computer_move(computer_difficulty)
             game_over, winner = self.service.is_game_over()
             if not game_over:
-                self.service.computer_move(computer_difficulty)
-                game_over, winner = self.service.is_game_over()
-                if not game_over:
-                    print(self.service.display_board())
+                print(self.service.display_board())
             elif game_over:
                 print(self.service.display_board())
                 if winner == user:
