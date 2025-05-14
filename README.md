@@ -1,49 +1,49 @@
-# Connect-Four - Romanian
+# Connect-Four - English
 
-Acest proiect este o implementare a jocului Connect Four (Patru la rând) scris în Python. Permite jucătorilor să joace împotriva calculatorului cu diferite niveluri de dificultate sau să interacționeze prin intermediul unei interfețe grafice (GUI).
+This project is an implementation of the Connect Four (Four in a Row) game written in Python. It allows players to compete against the computer at different difficulty levels or interact through a graphical user interface (GUI).
 
-## Structura Proiectului
+## Project Structure
 
-Proiectul este organizat în mai multe fișiere Python, fiecare având o responsabilitate specifică:
+The project is organized into several Python files, each with a specific responsibility:
 
-* **main.py**:  Fișierul principal de execuție. Acesta inițializează jocul, permite utilizatorului să aleagă între interfața linie de comandă (CLI) și interfața grafică (GUI), și setează nivelul de dificultate al calculatorului, dacă este cazul.
-* **user_interface.py**:  Gestionarea interacțiunii cu utilizatorul prin linia de comandă (CLI). Afișează tabla de joc, primește input-ul utilizatorului și afișează rezultatele jocului.
-* **GUI_repository.py**:  Implementarea interfeței grafice (GUI) folosind `tkinter`. Creează tabla de joc vizuală, gestionează input-ul utilizatorului prin click-uri și actualizează tabla după fiecare mutare.
-* **services.py**:  Stratul de servicii care face legătura între interfața utilizator și logica jocului. Coordonează acțiunile necesare pentru desfășurarea jocului.
-* **board_repository.py**:  Conține logica principală a jocului. Definește regulile jocului, verifică mutările, determină câștigătorul și gestionează tabla de joc. Include, de asemenea, strategia calculatorului pentru diferite niveluri de dificultate.
-* **board.py**:  Definește clasa `Board`, care reprezintă tabla de joc și metodele pentru a o inițializa și reseta.
-* **src/domain/**:  Acest director ar putea conține fișiere de domeniu (ex: clase de date). În codul furnizat, există doar `board.py` în această structură.
-* **src/repository/**:  Acest director conține fișierele care gestionează persistenta datelor sau interacțiunea cu surse de date. În codul furnizat, avem `board_repository.py` și `GUI_repository.py`.
-* **src/services/**:  Acest director conține fișierele care implementează logica de afaceri a aplicației. În codul furnizat, avem `services.py`.
-* **src/ui/**:  Acest director conține fișierele care gestionează interacțiunea cu utilizatorul. În codul furnizat, avem `user_interface.py`.
+- **main.py**: The main execution file. It initializes the game, allows the user to choose between the command-line interface (CLI) and the graphical interface (GUI), and sets the computer's difficulty level, if applicable.
+- **user_interface.py**: Manages user interaction via the command line (CLI). Displays the game board, receives user input, and shows game results.
+- **GUI_repository.py**: Implements the graphical user interface (GUI) using `tkinter`. Creates a visual game board, handles user input via clicks, and updates the board after each move.
+- **services.py**: The service layer that connects the user interface with the game logic. Coordinates the actions required for the game to proceed.
+- **board_repository.py**: Contains the core game logic. Defines the game rules, validates moves, determines the winner, and manages the game board. It also includes the computer's strategy for different difficulty levels.
+- **board.py**: Defines the `Board` class, which represents the game board and the methods to initialize and reset it.
+- **src/domain/**: This directory may contain domain files (e.g., data classes). In the provided code, only `board.py` is included in this structure.
+- **src/repository/**: This directory contains files that handle data persistence or interaction with data sources. In the provided code, we have `board_repository.py` and `GUI_repository.py`.
+- **src/services/**: This directory contains files that implement the application's business logic. In the provided code, we have `services.py`.
+- **src/ui/**: This directory contains files that manage user interaction. In the provided code, we have `user_interface.py`.
 
-## Cum rulezi jocul
+## How to Run the Game
 
-1.  **Asigură-te că ai Python 3.x instalat.**
-2.  **Clonează acest repository pe calculatorul tău.**
-3.  **Deschide un terminal sau o linie de comandă și navighează în directorul proiectului.**
-4.  **Rulează fișierul `main.py` folosind comanda:** `python main.py`
-5.  **Urmează instrucțiunile din terminal pentru a alege interfața (CLI sau GUI) și, dacă alegi GUI, nivelul de dificultate al calculatorului.**
+1. Ensure you have Python 3.x installed.
+2. Clone this repository to your computer.
+3. Open a terminal or command line and navigate to the project directory.
+4. Run the `main.py` file using the command: `python main.py`
+5. Follow the instructions in the terminal to choose the interface (CLI or GUI) and, if you choose GUI, the computer's difficulty level.
 
-## Dependențe
+## Dependencies
 
-* **tkinter**:  Pentru interfața grafică (GUI).  (De obicei inclus în instalarea standard Python)
-* **texttable**: Pentru afișarea tablei in format text in CLI. Poti instala cu `pip install texttable`
+- **tkinter**: For the graphical user interface (GUI). (Usually included in the standard Python installation.)
+- **texttable**: For displaying the board in text format in the CLI. Install with `pip install texttable`.
 
-## Funcționalități
+## Features
 
-* **Două interfețe de joc:**
-    * **CLI (Command Line Interface):** Jocul se desfășoară în terminal, cu input text pentru mutări.
-    * **GUI (Graphical User Interface):** Interfață vizuală interactivă, cu butoane pentru a face mutări.
-* **Niveluri de dificultate pentru calculator:** Jucătorii pot alege dintre mai multe niveluri de dificultate (Ușor, Mediu, Greu, Incredibil) pentru a juca împotriva calculatorului.
-* **Validarea mutărilor:** Jocul verifică dacă mutările sunt valide și afișează erori dacă nu sunt.
-* **Detectarea câștigătorului:** Jocul determină automat când un jucător a câștigat sau când jocul s-a terminat la egalitate.
-* **Opțiunea de a reîncepe jocul:** Jucătorii pot reîncepe un joc nou după ce unul s-a terminat.
+- **Two game interfaces:**
+  - **CLI (Command Line Interface):** The game runs in the terminal, with text input for moves.
+  - **GUI (Graphical User Interface):** An interactive visual interface with buttons for making moves.
+- **Computer difficulty levels:** Players can choose from multiple difficulty levels (Easy, Medium, Hard, Incredible) to play against the computer.
+- **Move validation:** The game checks if moves are valid and displays errors if they are not.
+- **Winner detection:** The game automatically determines when a player has won or if the game has ended in a draw.
+- **Option to restart the game:** Players can start a new game after one has ended.
 
-## Note
+## Notes
 
-* Codul este organizat folosind o structură modulară, ceea ce facilitează mentenanța și extinderea.
-* Sunt incluse teste unitare pentru a asigura corectitudinea funcționării diferitelor componente ale jocului.
-* Strategia calculatorului variază în funcție de nivelul de dificultate, de la mutări aleatorii la algoritmi mai avansați (minimax).
+- The code is organized using a modular structure, which facilitates maintenance and extension.
+- Unit tests are included to ensure the correct functioning of the game's various components.
+- The computer's strategy varies depending on the difficulty level, from random moves to more advanced algorithms (e.g., minimax).
 
-Sper ca acest readme este util!
+I hope this README is helpful!

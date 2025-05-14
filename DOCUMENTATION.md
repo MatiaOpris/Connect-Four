@@ -1,278 +1,278 @@
-# Documentația Proiectului Connect Four
+# Connect Four Project Documentation
 
-## 1. Introducere
+## 1. Introduction
 
-Acest document descrie arhitectura, funcționalitățile și implementarea proiectului Connect Four, un joc clasic în care doi jucători (sau un jucător și calculatorul) încearcă să alinieze patru piese de aceeași culoare pe o tablă de joc. Proiectul oferă atât o interfață linie de comandă (CLI), cât și o interfață grafică (GUI) pentru a juca jocul.
+This document describes the architecture, features, and implementation of the Connect Four project, a classic game where two players (or a player versus the computer) attempt to align four pieces of the same color on a game board. The project offers both a command-line interface (CLI) and a graphical user interface (GUI) for playing the game.
 
-## 2. Arhitectura Proiectului
+## 2. Project Architecture
 
-Proiectul este structurat în mai multe module Python, fiecare având o responsabilitate clar definită. Diagrama de mai jos ilustrează relațiile principale dintre module:
+The project is structured into several Python modules, each with clearly defined responsibilities. The diagram below illustrates the main relationships between modules:
 
-### 2.1. Descrierea Modulelor
+### 2.1. Module Descriptions
 
-* **`main.py`**:
-    * Punctul de intrare principal al aplicației.
-    * Inițializează jocul și componentele sale.
-    * Permite utilizatorului să aleagă între interfața CLI și GUI.
-    * Configurează nivelul de dificultate al calculatorului (doar pentru GUI).
+- **`main.py`**:
+  - The main entry point of the application.
+  - Initializes the game and its components.
+  - Allows the user to choose between CLI and GUI interfaces.
+  - Configures the computer's difficulty level (GUI only).
 
-* **`user_interface.py`**:
-    * Gestionează interacțiunea cu utilizatorul prin linia de comandă (CLI).
-    * Afișează tabla de joc în format text.
-    * Primește și validează input-ul utilizatorului (mutările).
-    * Afișează rezultatele jocului și mesajele relevante.
+- **`user_interface.py`**:
+  - Manages user interaction via the command line (CLI).
+  - Displays the game board in text format.
+  - Receives and validates user input (moves).
+  - Displays game results and relevant messages.
 
-* **`GUI_repository.py`**:
-    * Implementează interfața grafică (GUI) utilizând `tkinter`.
-    * Creează și gestionează elementele vizuale ale tablei de joc (butoane, ferestre).
-    * Gestionează input-ul utilizatorului prin evenimente de click.
-    * Actualizează interfața vizual după fiecare mutare.
+- **`GUI_repository.py`**:
+  - Implements the graphical user interface (GUI) using `tkinter`.
+  - Creates and manages visual elements of the game board (buttons, windows).
+  - Handles user input via click events.
+  - Updates the visual interface after each move.
 
-* **`services.py`**:
-    * Conține logica de afaceri centrală a jocului.
-    * Coordonează interacțiunile dintre interfața utilizator și modulele de repository.
-    * Oferă metode pentru a efectua mutări, verifica starea jocului și alte operațiuni conexe.
+- **`services.py`**:
+  - Contains the core business logic of the game.
+  - Coordinates interactions between the user interface and repository modules.
+  - Provides methods for making moves, checking game state, and other related operations.
 
-* **`board_repository.py`**:
-    * Implementează logica de bază a jocului Connect Four.
-    * Gestionează tabla de joc (reprezentarea datelor și manipularea).
-    * Verifică validitatea mutărilor efectuate de jucători.
-    * Detectează condițiile de câștig și terminare a jocului.
-    * Implementează strategia calculatorului pentru diferite niveluri de dificultate.
+- **`board_repository.py`**:
+  - Implements the core logic of Connect Four.
+  - Manages the game board (data representation and manipulation).
+  - Validates player moves.
+  - Detects win conditions and game termination.
+  - Implements the computer's strategy for different difficulty levels.
 
-* **`board.py`**:
-    * Definește clasa `Board`, care reprezintă tabla de joc ca o structură de date.
-    * Oferă metode pentru a inițializa și reseta tabla la starea inițială.
+- **`board.py`**:
+  - Defines the `Board` class, which represents the game board as a data structure.
+  - Provides methods to initialize and reset the board to its initial state.
 
-### 2.2. Fluxul Principal de Execuție
+### 2.2. Main Execution Flow
 
-1.  Aplicația pornește din fișierul `main.py`.
-2.  Utilizatorul este invitat să aleagă între interfața CLI și GUI.
-3.  Dacă este selectată GUI, utilizatorul trebuie să aleagă și nivelul de dificultate al calculatorului.
-4.  Jocul se desfășoară într-o buclă:
-    * În modul CLI, `user_interface.py` gestionează input/output text.
-    * În modul GUI, `GUI_repository.py` gestionează interacțiunea vizuală.
-    * `services.py` coordonează logica jocului și apelează funcții din `board_repository.py`.
-    * `board_repository.py` actualizează tabla și verifică regulile jocului.
-5.  Jocul se termină când un jucător câștigă sau tabla este plină (rezultând într-o remiză).
-6.  Utilizatorul poate alege să reînceapă jocul sau să iasă din aplicație.
+1. The application starts from the `main.py` file.
+2. The user is prompted to choose between CLI and GUI interfaces.
+3. If GUI is selected, the user must also choose the computer's difficulty level.
+4. The game runs in a loop:
+   - In CLI mode, `user_interface.py` handles text input/output.
+   - In GUI mode, `GUI_repository.py` manages visual interaction.
+   - `services.py` coordinates game logic and calls functions from `board_repository.py`.
+   - `board_repository.py` updates the board and checks game rules.
+5. The game ends when a player wins or the board is full (resulting in a draw).
+6. The user can choose to restart the game or exit the application.
 
-## 3. Descrierea Funcționalităților
+## 3. Feature Descriptions
 
-### 3.1. Interfețe de Joc
+### 3.1. Game Interfaces
 
-* **CLI (Command Line Interface):**
-    * Interacțiune bazată pe text în terminal.
-    * Utilizatorul introduce mutările folosind coordonatele coloanelor (A, B, C...).
-    * Tabla de joc este afișată în format text folosind modulul `texttable`.
+- **CLI (Command Line Interface)**:
+  - Text-based interaction in the terminal.
+  - The user enters moves using column coordinates (A, B, C...).
+  - The game board is displayed in text format using the `texttable` module.
 
-* **GUI (Graphical User Interface):**
-    * Interfață vizuală interactivă cu ferestre și butoane.
-    * Utilizatorul face mutări dând click pe butoanele corespunzătoare coloanelor.
-    * Oferă o reprezentare grafică a tablei de joc și a pieselor.
+- **GUI (Graphical User Interface)**:
+  - Interactive visual interface with windows and buttons.
+  - The user makes moves by clicking on the corresponding column buttons.
+  - Provides a graphical representation of the game board and pieces.
 
-### 3.2. Niveluri de Dificultate ale Calculatorului
+### 3.2. Computer Difficulty Levels
 
-* **Ușor:**
-    * Calculatorul face mutări complet aleatorii, fără nicio strategie.
+- **Easy**:
+  - The computer makes completely random moves with no strategy.
 
-* **Mediu:**
-    * Calculatorul încearcă să blocheze mutările potențial câștigătoare ale utilizatorului.
-    * De asemenea, încearcă să creeze propriile oportunități de a câștiga.
+- **Medium**:
+  - The computer attempts to block the player's potential winning moves.
+  - Also tries to create its own winning opportunities.
 
-* **Greu:**
-    * Calculatorul folosește o strategie mai avansată, anticipând câteva mutări înainte.
+- **Hard**:
+  - The computer uses a more advanced strategy, anticipating several moves ahead.
 
-* **Incredibil (Godlike):**
-    * Calculatorul utilizează algoritmul Minimax cu tăiere Alpha-Beta pentru a lua decizii aproape optime.
-    * Încearcă să maximizeze șansele sale de câștig și să minimizeze șansele utilizatorului.
+- **Incredible (Godlike)**:
+  - The computer uses the Minimax algorithm with Alpha-Beta pruning to make near-optimal decisions.
+  - Attempts to maximize its chances of winning and minimize the player's chances.
 
-### 3.3. Alte Funcționalități
+### 3.3. Other Features
 
-* **Validarea mutărilor:**
-    * Jocul verifică dacă mutările introduse de utilizator sunt valide (ex., coloana nu este plină).
-    * Afișează mesaje de eroare pentru mutările invalide.
+- **Move validation**:
+  - The game checks if user moves are valid (e.g., the column is not full).
+  - Displays error messages for invalid moves.
 
-* **Detectarea câștigătorului:**
-    * Jocul verifică automat după fiecare mutare dacă există un câștigător (patru piese aliniate).
-    * De asemenea, verifică dacă jocul s-a terminat la egalitate (tabla este plină).
+- **Winner detection**:
+  - The game automatically checks after each move if there is a winner (four aligned pieces).
+  - Also checks if the game has ended in a draw (board is full).
 
-* **Gestionarea terminării jocului:**
-    * Jocul se termină când un jucător câștigă sau când se atinge o remiză.
-    * Afișează un mesaj corespunzător la finalul jocului.
+- **Game termination handling**:
+  - The game ends when a player wins or a draw is reached.
+  - Displays an appropriate message at the end of the game.
 
-* **Reînceperea jocului:**
-    * Utilizatorul are opțiunea de a reîncepe un joc nou după ce unul s-a terminat.
+- **Game restart**:
+  - The user can choose to start a new game after one has ended.
 
-## 4. Descrierea Claselor și Metodelor Cheie
+## 4. Key Classes and Methods
 
-### 4.1. Clasa `Board` (`board.py`)
+### 4.1. `Board` Class (`board.py`)
 
-* `__init__(self)`:
-    * Constructorul clasei.
-    * Inițializează tabla de joc ca o listă de liste, reprezentând celulele.
+- `__init__(self)`:
+  - Class constructor.
+  - Initializes the game board as a list of lists representing the cells.
 
-* `_initialize_board(self)`:
-    * Metodă internă pentru a popula tabla cu etichetele coloanelor (A, B, C...) și valorile inițiale ('0' pentru celule goale).
+- `_initialize_board(self)`:
+  - Internal method to populate the board with column labels (A, B, C...) and initial values ('0' for empty cells).
 
-* `reset_board(self)`:
-    * Resetează tabla de joc la starea inițială, ștergând toate piesele.
+- `reset_board(self)`:
+  - Resets the game board to its initial state, clearing all pieces.
 
-### 4.2. Clasa `BoardActions` (`board_repository.py`)
+### 4.2. `BoardActions` Class (`board_repository.py`)
 
-* `__init__(self, board, computer_strategy)`:
-    * Constructorul clasei.
-    * Primește o instanță a clasei `Board` și o instanță a clasei `ComputerStrategy`.
+- `__init__(self, board, computer_strategy)`:
+  - Class constructor.
+  - Receives an instance of the `Board` class and an instance of the `ComputerStrategy` class.
 
-* `add_move_on_board(self, move, type_finder)`:
-    * Adaugă o mutare pe tablă pentru un jucător (utilizator sau calculator).
-    * `move` reprezintă coloana în care se face mutarea.
-    * `type_finder` indică jucătorul ('1' pentru utilizator, '2' pentru calculator).
+- `add_move_on_board(self, move, type_finder)`:
+  - Adds a move to the board for a player (user or computer).
+  - `move` represents the column where the move is made.
+  - `type_finder` indicates the player ('1' for user, '2' for computer).
 
-* `verify_move(self, move)`:
-    * Verifică dacă o mutare este validă (dacă coloana există și nu este plină).
-    * Returnează un tuplu cu un boolean (True dacă validă, False altfel) și un mesaj de eroare (dacă este cazul).
+- `verify_move(self, move)`:
+  - Checks if a move is valid (if the column exists and is not full).
+  - Returns a tuple with a boolean (True if valid, False otherwise) and an error message (if applicable).
 
-* `check_winner(self, player)`:
-    * Verifică dacă un jucător a câștigat jocul (are patru piese aliniate pe orizontală, verticală sau diagonală).
-    * `player` reprezintă jucătorul pentru care se face verificarea.
+- `check_winner(self, player)`:
+  - Checks if a player has won the game (has four aligned pieces horizontally, vertically, or diagonally).
+  - `player` represents the player being checked.
 
-* `is_game_over(self)`:
-    * Verifică dacă jocul s-a terminat (fie a câștigat cineva, fie tabla este plină).
-    * Returnează un tuplu cu un boolean (True dacă s-a terminat, False altfel) și jucătorul câștigător (dacă există).
+- `is_game_over(self)`:
+  - Checks if the game has ended (either someone won or the board is full).
+  - Returns a tuple with a boolean (True if ended, False otherwise) and the winning player (if any).
 
-* `restart_game(self)`:
-    * Resetează tabla de joc pentru a începe un joc nou.
+- `restart_game(self)`:
+  - Resets the game board to start a new game.
 
-* `display_board(self)`:
-    * Afișează tabla de joc în format text (utilizat în CLI).
+- `display_board(self)`:
+  - Displays the game board in text format (used in CLI).
 
-* `get_board(self)`:
-    * Returnează reprezentarea internă a tablei de joc (lista de liste).
+- `get_board(self)`:
+  - Returns the internal representation of the game board (list of lists).
 
-* `computer_move(self, computer_difficulty)`:
-    * Realizează mutarea calculatorului, apelând la metodele din clasa `ComputerStrategy`.
-    * `computer_difficulty` specifică nivelul de dificultate al calculatorului.
+- `computer_move(self, computer_difficulty)`:
+  - Executes the computer's move by calling methods from the `ComputerStrategy` class.
+  - `computer_difficulty` specifies the computer's difficulty level.
 
-### 4.3. Clasa `ComputerStrategy` (`board_repository.py`)
+### 4.3. `ComputerStrategy` Class (`board_repository.py`)
 
-* `__init__(self, board_action)`:
-    * Constructorul clasei.
-    * Primește o instanță a clasei `BoardActions`.
+- `__init__(self, board_action)`:
+  - Class constructor.
+  - Receives an instance of the `BoardActions` class.
 
-* `set_computer_difficulty(self, difficulty)`:
-    * Setează strategia de mutare a calculatorului în funcție de nivelul de dificultate ales de utilizator.
+- `set_computer_difficulty(self, difficulty)`:
+  - Sets the computer's move strategy based on the user-selected difficulty level.
 
-* `easy_difficulty_move(self)`:
-    * Implementează strategia pentru nivelul ușor (mutări aleatorii).
+- `easy_difficulty_move(self)`:
+  - Implements the strategy for the easy level (random moves).
 
-* `medium_difficulty_move(self)`:
-    * Implementează strategia pentru nivelul mediu (încearcă să blocheze jucătorul și să creeze oportunități).
+- `medium_difficulty_move(self)`:
+  - Implements the strategy for the medium level (attempts to block the player and create opportunities).
 
-* `hard_difficulty_move(self)`:
-    * Implementează strategia pentru nivelul greu (strategie mai avansată, dar nu optimă).
+- `hard_difficulty_move(self)`:
+  - Implements the strategy for the hard level (more advanced but not optimal strategy).
 
-* `godlike_difficulty_move(self, depth)`:
-    * Implementează strategia pentru nivelul "Godlike" folosind algoritmul Minimax cu tăiere Alpha-Beta.
-    * `depth` reprezintă adâncimea de căutare a algoritmului.
+- `godlike_difficulty_move(self, depth)`:
+  - Implements the strategy for the "Godlike" level using the Minimax algorithm with Alpha-Beta pruning.
+  - `depth` represents the search depth of the algorithm.
 
-* `get_valid_moves(self)`:
-    * Obține lista de mutări valide disponibile pe tabla curentă.
+- `get_valid_moves(self)`:
+  - Retrieves the list of valid moves available on the current board.
 
-* `block_player_win(self)`:
-    * Verifică dacă jucătorul este pe cale să câștige și încearcă să blocheze această mutare.
+- `block_player_win(self)`:
+  - Checks if the player is about to win and attempts to block that move.
 
-* `try_to_win(self)`:
-    * Verifică dacă calculatorul poate câștiga și face mutarea respectivă.
+- `try_to_win(self)`:
+  - Checks if the computer can win and makes the corresponding move.
 
-* `minimax(self, board, depth, alpha, beta, maximizing_player)`:
-    * Implementează algoritmul Minimax cu tăiere Alpha-Beta pentru luarea deciziilor strategice.
-    * `board` este tabla de joc curentă.
-    * `depth` este adâncimea de căutare.
-    * `alpha` și `beta` sunt valorile pentru tăierea Alpha-Beta.
-    * `maximizing_player` indică dacă se maximizează scorul calculatorului sau al jucătorului.
+- `minimax(self, board, depth, alpha, beta, maximizing_player)`:
+  - Implements the Minimax algorithm with Alpha-Beta pruning for strategic decision-making.
+  - `board` is the current game board.
+  - `depth` is the search depth.
+  - `alpha` and `beta` are values for Alpha-Beta pruning.
+  - `maximizing_player` indicates whether the computer's or player's score is being maximized.
 
-* `get_next_open_row(board, column)`:
-    * Găsește următorul rând liber dintr-o coloană.
+- `get_next_open_row(board, column)`:
+  - Finds the next open row in a column.
 
-* `score_position(board, player)`:
-    * Evaluează scorul unei poziții pe tablă pentru un jucător.
+- `score_position(board, player)`:
+  - Evaluates the score of a board position for a player.
 
-* `evaluate_window(window, piece)`:
-    * Evaluează scorul unei ferestre de 4 celule consecutive.
+- `evaluate_window(window, piece)`:
+  - Evaluates the score of a window of 4 consecutive cells.
 
-### 4.4. Clasa `Services` (`services.py`)
+### 4.4. `Services` Class (`services.py`)
 
-* `__init__(self, board_repository)`:
-    * Constructorul clasei.
-    * Primește o instanță a clasei `BoardActions`.
+- `__init__(self, board_repository)`:
+  - Class constructor.
+  - Receives an instance of the `BoardActions` class.
 
-* `is_game_over(self)`:
-    * Delegează verificarea stării jocului către `board_repository`.
+- `is_game_over(self)`:
+  - Delegates game state checking to `board_repository`.
 
-* `add_move_on_board(self, player, type_finder)`:
-    * Delegează adăugarea unei mutări pe tablă către `board_repository`.
+- `add_move_on_board(self, player, type_finder)`:
+  - Delegates adding a move to the board to `board_repository`.
 
-* `computer_move(self, computer_difficulty)`:
-    * Delegează mutarea calculatorului către `board_repository`.
+- `computer_move(self, computer_difficulty)`:
+  - Delegates the computer's move to `board_repository`.
 
-* `restart_game(self)`:
-    * Delegează reînceperea jocului către `board_repository`.
+- `restart_game(self)`:
+  - Delegates game restart to `board_repository`.
 
-* `display_board(self)`:
-    * Delegează afișarea tablei către `board_repository`.
+- `display_board(self)`:
+  - Delegates board display to `board_repository`.
 
-* `get_board(self)`:
-    * Delegează obținerea tablei către `board_repository`.
+- `get_board(self)`:
+  - Delegates board retrieval to `board_repository`.
 
-### 4.5. Clasa `UserInterface` (`user_interface.py`)
+### 4.5. `UserInterface` Class (`user_interface.py`)
 
-* `__init__(self, service)`:
-    * Constructorul clasei.
-    * Primește o instanță a clasei `Services`.
+- `__init__(self, service)`:
+  - Class constructor.
+  - Receives an instance of the `Services` class.
 
-* `try_and_except_input(left_bound, right_bound)`:
-    * Gestionează input-ul utilizatorului cu validare și tratare a erorilor (pentru input-uri numerice).
+- `try_and_except_input(left_bound, right_bound)`:
+  - Handles user input with validation and error handling (for numeric inputs).
 
-* `computer_difficulty_level_menu(self)`:
-    * Afișează meniul pentru alegerea nivelului de dificultate al calculatorului (în CLI).
+- `computer_difficulty_level_menu(self)`:
+  - Displays the menu for selecting the computer's difficulty level (in CLI).
 
-* `verify_input(user_move)`:
-    * Verifică dacă input-ul utilizatorului pentru mutare este valid (formatul coloanei).
+- `verify_input(user_move)`:
+  - Checks if the user's move input is valid (column format).
 
-* `run_program(self)`:
-    * Rulează bucla principală a jocului în modul CLI.
+- `run_program(self)`:
+  - Runs the main game loop in CLI mode.
 
-### 4.6. Clasa `GUIBoardRepository` (`GUI_repository.py`)
+### 4.6. `GUIBoardRepository` Class (`GUI_repository.py`)
 
-* `__init__(self, root, board_action, difficulty)`:
-    * Constructorul clasei.
-    * Primește fereastra principală `root` (din `tkinter`), o instanță a clasei `BoardActions` și nivelul de dificultate al calculatorului.
+- `__init__(self, root, board_action, difficulty)`:
+  - Class constructor.
+  - Receives the main window `root` (from `tkinter`), an instance of the `BoardActions` class, and the computer's difficulty level.
 
-* `create_board(self)`:
-    * Creează elementele vizuale ale tablei de joc (butoane) folosind `tkinter`.
+- `create_board(self)`:
+  - Creates visual elements of the game board (buttons) using `tkinter`.
 
-* `make_move(self, row, column)`:
-    * Gestionează mutările utilizatorului prin evenimente de click pe butoane.
-    * Apelează la metodele din `board_action` pentru a efectua mutarea.
+- `make_move(self, row, column)`:
+  - Handles user moves via button click events.
+  - Calls methods from `board_action` to execute the move.
 
-* `update_board(self, player=None)`:
-    * Actualizează aspectul vizual al tablei după o mutare (schimbă culoarea butoanelor).
+- `update_board(self, player=None)`:
+  - Updates the visual appearance of the board after a move (changes button colors).
 
-## 5. Dependențe
+## 5. Dependencies
 
-* **Python 3.x**
-* **tkinter** (pentru GUI - de obicei inclus în instalarea standard Python)
-* **texttable** (pentru afișarea tablei în CLI - se poate instala cu `pip install texttable`)
+- **Python 3.x**
+- **tkinter** (for GUI - usually included in standard Python installation)
+- **texttable** (for displaying the board in CLI - can be installed with `pip install texttable`)
 
-## 6. Instrucțiuni de Instalare și Rulare
+## 6. Installation and Running Instructions
 
-1.  Asigură-te că ai Python 3.x instalat pe sistemul tău.
-2.  Clonează repository-ul proiectului pe calculator.
-3.  Deschide un terminal sau linie de comandă și navighează în directorul proiectului.
-4.  Rulează fișierul `main.py` folosind comanda: `python main.py`
-5.  Urmează instrucțiunile afișate pentru a alege interfața (CLI sau GUI) și, dacă este cazul, nivelul de dificultate al calculatorului.
+1. Ensure Python 3.x is installed on your system.
+2. Clone the project repository to your computer.
+3. Open a terminal or command line and navigate to the project directory.
+4. Run the `main.py` file using the command: `python main.py`
+5. Follow the displayed instructions to choose the interface (CLI or GUI) and, if applicable, the computer's difficulty level.
 
-## 7. Testare
+## 7. Testing
 
-Proiectul include teste unitare implementate folosind modulul `unittest` din Python.
+The project includes unit tests implemented using Python's `unittest` module.
